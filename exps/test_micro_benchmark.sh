@@ -12,16 +12,13 @@ mkdir -p micro_benchmark
 cd ..
 
 # 定义测试参数数组
-# standalone evaluation
-load_account=(20000000 40000000 80000000 100000000)
-batch_sizes=(8000) 
-value_sizes=(800)
-# micro-benchmark evaluation
+load_account=(10000)
 # load_account=(40000000)
-# batch_sizes=(500 1000 2000 3000 4000 5000)
-# value_sizes=(256 512 1024 2048)
+batch_sizes=(500 1000 2000 3000 4000 5000)
+value_sizes=(256 512 1024 2048)
 num_transaction_version=20
-load_batch_size=20000
+# load_batch_size=20000
+load_batch_size=2000
 key_size=65
 
 data_path="$PWD/../data/"

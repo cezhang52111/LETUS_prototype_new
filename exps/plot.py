@@ -20,11 +20,13 @@ for entry in os.listdir(detail_dir):
     full_path = os.path.join(detail_dir, entry)
     if os.path.isfile(full_path) and entry.endswith('.csv'):
         fname = full_path.split('/')[-1].split('.')[0]
-        bz, vl = fname.split('v')
-        bz, vl = int(bz.strip('b')), int(vl)
-        detail_files.append((bz, vl, fname, full_path))
+        fname, vl = fname.split('v')
+        vl = int(vl)
+        acc, bz = fname.split('b') 
+        acc, bz = int(acc.strip('acc')), int(bz)
+        detail_files.append((acc, bz, vl, fname, full_path))
 detail_files = sorted(detail_files)
-for bz, vl, fn, fp in detail_files:
+for acc, bz, vl, fn, fp in detail_files:
     df = pd.read_csv(fp)
     plt.figure(figsize=(15, 10))
     plt.plot(df['version'].to_numpy(), df['get_throughput'].to_numpy()/1000, 
@@ -108,7 +110,7 @@ plt.grid(True)
 
 plt.tight_layout()
 
-plt.savefig(summary_plot_file, dpi=300, bbox_inches='tight')
-plt.close()
+
+
 
 print(f"图表已保存为 {summary_plot_file}")
