@@ -60,3 +60,5 @@ results*/
 FlameGraph/
 
 !exps/exp_arxiv/
+
+*/*.txt

@@ -67,6 +67,27 @@ int GetIndex(char ch) {
   }
 }
 
+int NodeProof::serial_size() {
+  int size = 0;
+  size += 4; // level size
+  size += 4; // index size
+  size += 2; // bitmap
+  for (string elem: sibling_hash) {
+    size += elem.length(); // size of the element in the sibling hash vector
+  }
+  return size;
+}
+
+int DMMTrieProof::serial_size() {
+  int size = 0;
+  size += value.length(); // size of the value
+  for (NodeProof elem: proofs) {
+    size += elem.serial_size(); // size of each node proof
+  }
+  size += 32; // size of the root hash value
+  return size;
+}
+
 void Node::CalculateHash() {}
 void Node::AddChild(int index, Node *child, uint64_t version,
                     const string &hash) {}

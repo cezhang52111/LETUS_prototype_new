@@ -266,35 +266,39 @@ int main(const int argc, const char *argv[]) {
   string base_tx_num = "";
   string tx_num = "";
   int storage_capture_block_interval = 100;
-  // trie->Put(tid, 1, "12345", "aaa");
-  // trie->Put(tid, 1, "23456", "bbb");
-  // trie->Put(tid, 1, "34567", "ccc");
-  // trie->Put(tid, 1, "45678", "ddd");
-  // trie->Put(tid, 1, "56789", "eee");
-  // trie->Commit(1);
-  // trie->Put(tid, 2, "11111", "aa2");
-  // trie->Put(tid, 2, "23456", "bb2");
-  // trie->Put(tid, 2, "34567", "cc2");
-  // trie->Put(tid, 2, "45678", "dd2");
-  // trie->Put(tid, 2, "56789", "ee2");
-  // trie->Commit(2);
-  // trie->Put(tid, 3, "11111", "aa3");
-  // trie->Put(tid, 3, "23456", "bb3");
-  // trie->Commit(3);
-  // string test_value = trie->Get(tid, 3, "34567");
-  // cout << "test_value " << test_value <<endl;
-  // DMMTrieProof proof = trie->GetProof(tid, 2, "23456");
-  // string root_hash2 = trie->GetRootHash(tid, 2);
-  // cout << boolalpha << trie->Verify(tid, "23456", "bb2", root_hash2, proof)
-  //      << endl;
+
+  // simple test for the write
+  /* trie->Put(tid, 1, "12345", "aaa");
+  trie->Put(tid, 1, "23456", "bbb");
+  trie->Put(tid, 1, "34567", "ccc");
+  trie->Put(tid, 1, "45678", "ddd");
+  trie->Put(tid, 1, "56789", "eee");
+  trie->Commit(1);
+  trie->Put(tid, 2, "11111", "aa2");
+  trie->Put(tid, 2, "23456", "bb2");
+  trie->Put(tid, 2, "34567", "cc2");
+  trie->Put(tid, 2, "45678", "dd2");
+  trie->Put(tid, 2, "56789", "ee2");
+  trie->Commit(2);
+  trie->Put(tid, 3, "11111", "aa3");
+  trie->Put(tid, 3, "23456", "bb3");
+  trie->Commit(3);
+  string test_value = trie->Get(tid, 3, "34567");
+  cout << "test_value " << test_value <<endl;
+  DMMTrieProof proof = trie->GetProof(tid, 2, "23456");
+  string root_hash2 = trie->GetRootHash(tid, 2);
+  cout << boolalpha << trie->Verify(tid, "23456", "bb2", root_hash2, proof)
+       << endl;
+  cout << "proof size: " << proof.serial_size() <<endl;
   
-  // DMMTrieProof proof2 = trie->GetProof(tid, 1, "23456");     
-  // string root_hash1 = trie->GetRootHash(tid, 1);
-  // cout << boolalpha << trie->Verify(tid, "23456", "bbb", root_hash1, proof2)
-  //      << endl;
-  // cout << boolalpha << trie->Verify(tid, "23456", "bb2", root_hash1, proof2)
-  //      << endl;
- 
+  DMMTrieProof proof2 = trie->GetProof(tid, 1, "23456");     
+  string root_hash1 = trie->GetRootHash(tid, 1);
+  cout << boolalpha << trie->Verify(tid, "23456", "bbb", root_hash1, proof2)
+       << endl;
+  cout << boolalpha << trie->Verify(tid, "23456", "bb2", root_hash1, proof2)
+       << endl;
+  cout << "proof size: " << proof2.serial_size() <<endl;
+ */
 
   ParseCommandLine(argc, argv, filepath, result_path_base, base_tx_num, tx_num);
   cout << base_tx_num << endl;
@@ -317,18 +321,6 @@ int main(const int argc, const char *argv[]) {
   // string to store each line of the file
   string line;
   uint64_t cur_version = 1;
-
-  // trie->Put(tid, cur_version, "6284781860667377211", "(5. Do&[9$P/(%<9'h/Gg3Za7A3 [90M");
-  // trie->Put(tid, cur_version, "8517097267634966620", "'=~.Pe>Dm&?v\"J?!*~'>n\"-:#U/4Ok#5");
-  // trie->Put(tid, cur_version, "1820151046732198393", "![-(?r5508#>8_1%\"x860=S'\"C!<Ve6T");
-  // trie->Put(tid, cur_version, "4052466453699787802", "<Rs>@i/F' Xk>0j;= %&|#'*3^9-Sa4U");
-  // trie->Put(tid, cur_version, "3232700585171816769", "<;*02$;Ji/Vm*U39Km-7>)>84_o7*2=C");
-  // trie->Put(tid, cur_version, "1000385178204227360", "=:d3Zi4Ae6D'77>!1n;[a*E+34*<:t'G");
-  // trie->Put(tid, cur_version, "7697331399106995587", ":241Aa4,00M1/E=03x/7r/=89>x+-&.&");
-  // trie->Put(tid, cur_version, "5465015992139406178", "5. 0<21!f\"$n?Yk>]42`2;b(O==H5+)");
-  // trie->Put(tid, cur_version, "6873002678636213555", "7528&.'-z2=|$(~3&t?!|3Ms?!4!N{8U");
-  // trie->Put(tid, cur_version, "9105318085603802964", ">;l79. 4~'004Ne.L%7Pk*Xw<3 4Qa.'");
-  // trie->Commit(cur_version);
 
   if (datafile.is_open()) {
     vector<tuple<string, string, string>> block; // init the block info

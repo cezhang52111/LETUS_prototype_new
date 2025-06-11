@@ -32,11 +32,13 @@ struct NodeProof {
   int index;
   uint16_t bitmap;
   vector<string> sibling_hash;
+  int serial_size();
 };
 
 struct DMMTrieProof {
   string value;
   vector<NodeProof> proofs;
+  int serial_size();
 };
 
 class Node {
