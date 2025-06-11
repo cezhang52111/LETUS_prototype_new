@@ -1146,7 +1146,7 @@ void DMMTrie::Commit(uint64_t version) { CalcRootHash(0, version); }
 
 void DMMTrie::CalcRootHash(uint64_t tid, uint64_t version) {
   if (version != current_version_) {
-    cout << "Commit version incompatible" << endl;
+    // cout << "Commit version incompatible" << endl;
   }
 
   map<string, set<string>, decltype(CompareStrings)> updates(CompareStrings);

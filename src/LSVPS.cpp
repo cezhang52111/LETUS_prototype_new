@@ -313,13 +313,13 @@ BasePage *LSVPS::LoadPage(const PageKey &pagekey) {
     delta_pages.pop();
     // TODO: leak here, the poped deltapage is not freed
   }
-  if (basepage->GetPageKey().version < pagekey.version) {
+  /* if (basepage->GetPageKey().version < pagekey.version) {
     // TODO: 拿到的版本比要的版本小 不是有可能最新版本就是比这个版本小吗？
     std::cerr << "Error: Requested version " << pagekey.version
               << " not found. Latest available version is "
               << basepage->GetPageKey().version << std::endl;
     return nullptr;  // the version is not found
-  }
+  } */
   return basepage;
 }
 
