@@ -45,6 +45,7 @@ int main(int argc, char** argv) {
       std::string key = BuildKeyName(key_generator.Next(), key_len);
       std::string val = std::to_string(10);
       trie->Put(0, version, key, val);
+      cout << key << " " << val << endl;
     }
     trie->Commit(version);
     auto end = chrono::system_clock::now();

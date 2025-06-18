@@ -62,3 +62,4 @@ FlameGraph/
 !exps/exp_arxiv/
 
 */*.txt
+*/*.json

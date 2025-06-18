@@ -242,12 +242,12 @@ vector<string> split_string(string input, char delimiter) {
   return v;
 }
 
-int get_disk_size(string data_path) {
-  string command_disk_space = "du -b "+data_path;
+long long get_disk_size(string data_path) {
+  string command_disk_space = "du -s -b "+data_path;
   string exec_result = exec(command_disk_space.c_str());
   vector<string> split_elems = split_string(exec_result, '\n');
   string size_str = split_string(split_elems.back(), '\t')[0];
-  int size = stoi(size_str);
+  long long size = stoll(size_str);
   return size;
 }
 
@@ -266,6 +266,7 @@ int main(const int argc, const char *argv[]) {
   string base_tx_num = "";
   string tx_num = "";
   int storage_capture_block_interval = 100;
+  int flush_interval = 100;
 
   // simple test for the write
   /* trie->Put(tid, 1, "12345", "aaa");
@@ -344,6 +345,10 @@ int main(const int argc, const char *argv[]) {
           trie->Put(tid, cur_version, key, value);
         }
         trie->Commit(cur_version);
+        if (cur_version % flush_interval == 0) {
+          trie->Flush(tid, cur_version);
+        } 
+        // trie->Flush(tid, cur_version);
         cout << "block " << cur_version <<endl;
         block.clear();
         cur_version += 1;
@@ -358,6 +363,7 @@ int main(const int argc, const char *argv[]) {
           trie->Put(tid, cur_version, key, value);
         }
         trie->Commit(cur_version);
+        trie->Flush(tid, cur_version);
         cout << "block " << cur_version <<endl;
         block.clear();
         cur_version += 1;
@@ -391,11 +397,15 @@ int main(const int argc, const char *argv[]) {
           }
         }
         trie->Commit(cur_version);
+        // trie->Flush(tid, cur_version);
+        if (cur_version % flush_interval == 0) {
+          trie->Flush(tid, cur_version);
+        }
         auto finish = std::chrono::high_resolution_clock::now();
         auto elapse = chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count(); // in nano second
         tsfile << "{\"block_id\":" << cur_version <<",\"elapse\":" << elapse << "}"<<endl;
         if ((cur_version - base_tx_num_int/block_tx_num) % storage_capture_block_interval == 0) {
-          int storage_size = get_disk_size(data_path);
+          long long storage_size = get_disk_size(data_path);
           storagefile << "{\"block_id\":" << cur_version <<",\"size\":" << storage_size << "}"<<endl;
         }
         cout << "block " << cur_version <<endl;
@@ -413,10 +423,11 @@ int main(const int argc, const char *argv[]) {
           trie->Put(tid, cur_version, key, value);
         }
         trie->Commit(cur_version);
+        trie->Flush(tid, cur_version);
         auto finish = std::chrono::high_resolution_clock::now();
         auto elapse = chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count(); // in nano second
         tsfile << "{\"block_id\":" << cur_version <<",\"elapse\":" << elapse << "}"<<endl;
-        int storage_size = get_disk_size(data_path);
+        long long storage_size = get_disk_size(data_path);
         storagefile << "{\"block_id\":" << cur_version <<",\"size\":" << storage_size << "}"<<endl;
         cout << "block " << cur_version <<endl;
         block.clear();
